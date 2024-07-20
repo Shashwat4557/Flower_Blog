@@ -9,4 +9,5 @@ Commands to run the project are :-
 4. python manage.py runserver
 
 To open the admin site for adding the administration panel of the website :- 
-127.0.0.1:8000/admin/
+  
+  1.  127.0.0.1:8000/admin/
