@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Website</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card img {
+            border-radius: 10px 10px 0 0;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            background-color: #fff;
+            border-radius: 0 0 10px 10px;
+        }
+        .card-title {
+            color: #333;
+            font-size: 1.25rem;
+        }
+        .card-text {
+            color: #555;
+        }
+        .dropdown-toggle::after {
+            content: none;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            margin-top: 20px;
+        }
+        .footer .social a {
+            color: #fff;
+            font-size: 1.5rem;
+            margin-left: 15px;
+            text-decoration: none;
+        }
+        .footer .social a:hover {
+            color: #007bff;
+        }
+        .footer .social {
+            display: flex;
+            justify-content: flex-end;
+        }
+    </style>
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Blog Website</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a href="{% url 'logout' %}" class="btn btn-outline-light my-2 my-sm-0">Logout</a>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="display-3 text-center mb-4">Today's New Blogs</h1>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <a href="{% url 'product_detail' product.pk %}">
+                            <div class="text-center">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid" data-toggle="tooltip" data-placement="top">
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.short_description }}</p>
+                            <div class="text-center">
+                                <a href="{% url 'edit_product' product.pk %}" class="btn btn-sm btn-primary mr-3">Edit</a>
+                                <a href="{% url 'delete_product' product.pk %}" class="btn btn-sm btn-danger mr-3">Delete</a>
+                                <br>
+                                <br>
+                                <div class="dropdown">
+                                    <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Share
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank">Share on Facebook</a>
+                                        <a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}" target="_blank">Share on Twitter</a>
+                                        <a class="dropdown-item" href="https://www.instagram.com/" target="_blank">Visit Instagram</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <small class="card-text">Created at: {{ product.created_at }}</small>
+                            <br>
+                            <small class="card-text">Updated at: {{ product.updated_at }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <p class="mb-1">&copy; {% now "Y" %} Shashwat Srivastava</p>
+                </div>
+                <div class="col-sm-6 d-flex justify-content-end">
+                    <div class="social">
+                        <a href="mailto:shashwat1326@gmail.com"><i class="bx bxl-gmail"></i></a>
+                        <a href="https://github.com/Shashwat4557"><i class="bx bxl-github"></i></a>
+                        <a href="tel:+91 8115332787"><i class="bx bx-phone-call"></i></a>
+                        <a href="https://linkedin.com/in/shashwat-srivastava-b03389224"><i class="bx bxl-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".card img").each(function() {
+                $(this).attr("src", $(this).attr("src") + "?" + new Date().getTime());
+            });
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
+</html>
