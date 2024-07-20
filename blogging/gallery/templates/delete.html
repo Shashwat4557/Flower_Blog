@@ -1,0 +1,86 @@
+<style>
+	body {
+	  font-family: Arial, sans-serif;
+	  background-color: #f9f9f9;
+	}
+  
+	.container {
+	  max-width: 600px;
+	  margin: 40px auto;
+	  padding: 30px;
+	  background-color: #fff;
+	  border: 1px solid #ddd;
+	  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	  border-radius: 10px;
+	}
+  
+	h1 {
+	  font-size: 36px;
+	  margin-bottom: 10px;
+	  color: #8B0A1A; 
+	}
+  
+	p {
+	  font-size: 18px;
+	  margin-bottom: 20px;
+	  color: #666;
+	}
+  
+	.product-name {
+	  font-weight: bold;
+	  color: #337ab7;
+	}
+  
+	.delete-form {
+	  margin-top: 20px;
+	  text-align: center;
+	}
+  
+	.btn {
+	  padding: 10px 20px;
+	  border: none;
+	  border-radius: 5px;
+	  font-size: 16px;
+	  cursor: pointer;
+	  background-color: #E74C3C;
+	  color: #fff;
+	}
+  
+	.btn:hover {
+	  background-color: #C0392B;
+	}
+  
+	.alert {
+	  padding: 15px;
+	  margin-bottom: 20px;
+	  border: 1px solid #ddd;
+	  border-radius: 10px;
+	  background-color: #F7D2C4;
+	}
+  
+	.back-link {
+	  font-weight: normal;
+	  text-decoration: none;
+	  color: #337ab7;
+	}
+  
+	.back-link:hover {
+	  text-decoration: underline;
+	}
+  </style>
+  
+  <title>Delete Blog</title>
+  
+  <div class="container">
+	<h1>Delete Blog Post</h1>
+	<div class="alert">
+	  <p>Are you sure you want to delete "<span class="product-name">{{ product.name }}</span>"?</p>
+	</div>
+	<div class="delete-form">
+	  <form method="post">
+		{% csrf_token %}
+		<button type="submit" class="btn">Yes, Delete</button>
+	  </form>
+	  <a href="{% url 'product_list' %}" class="back-link">Back to Home Page</a>
+	</div>
+  </div>
